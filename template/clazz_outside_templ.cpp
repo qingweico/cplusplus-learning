@@ -2,7 +2,8 @@
 using namespace std;
 
 // 类外函数模板实现
-template <class T> class Ex {
+template <class T>
+class Ex {
 private:
     T name;
 public:
@@ -19,6 +20,6 @@ template <class T> void Ex<T>::func() {
 }
 
 int main() {
-    Ex ex("ex");
+    Ex<string> ex("ex");
     ex.func();
 }

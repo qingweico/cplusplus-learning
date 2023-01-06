@@ -2,24 +2,28 @@
 
 using namespace std;
 
-template<class T> class Result;
-template <class T>
+template<class T>
+class Result;
+
+template<class T>
 void print(Result<T> &r) {
     cout << "{data : " << r.data << ", success : " << boolalpha << r.success << "}" << endl;
 }
-template<class T> class Result {
+
+template<class T>
+class Result {
 
     // 类内实现模板友元函数
-//    friend void print(Result<T> &r) {
-//        cout << "{data : " << r.data << ", success : " << boolalpha << r.success << "}" << endl;
-//    }
+    friend void print(Result<T> &r) {
+        cout << "{data : " << r.data << ", success : " << boolalpha << r.success << "}" << endl;
+    }
 
     // 类外实现模板友元函数
     friend void print<>(Result<T> &r);
 
 private:
     T data;
-    bool success;
+    bool success{};
 
     Result(T data, bool success) {
         this->data = data;
@@ -27,18 +31,19 @@ private:
     }
 
 public:
-    Result() {}
 
-    void ok(T data) {
-        this->data = data;
-        this->success = true;
+    Result() = default;
+
+    Result ok(T t) {
+
+        return Result(t, true);
     }
 
 };
 
 
 int main() {
-    Result<string> r;
-    r.ok("hhhh");
+    Result<string> r{};
+    r = r.ok("hhhh");
     print(r);
 }
